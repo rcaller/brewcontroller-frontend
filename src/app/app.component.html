@@ -1,15 +1,12 @@
 <script src="node_modules/chart.js/src/chart.js"></script>
-<div style="text-align:center">
-  <h1>
-    {{ title }}
-  </h1>
-</div>
 <div style="left: 50px;width: calc(100% - 100px);border: 1px solid black;">
-<mat-grid-list cols="5" rowHeight="2:3"> 
-  <mat-grid-tile colspan="4" style="border: 1px solid black;"><app-graph></app-graph></mat-grid-tile>
-  <mat-grid-tile>Load</mat-grid-tile>
-  <mat-grid-tile><app-gauges thermo="beer"></app-gauges></mat-grid-tile>
+<mat-grid-list cols="4" rowHeight="2:3">
+  <mat-grid-tile colspan="3" ><app-graph></app-graph></mat-grid-tile>
+  <mat-grid-tile style="border: 1px solid black;">Load</mat-grid-tile>
+
+  <mat-grid-tile><app-gauges thermo="herms"></app-gauges></mat-grid-tile>
   <mat-grid-tile><app-gauges thermo="flow"></app-gauges></mat-grid-tile>
+  <mat-grid-tile><app-gauges thermo="mash"></app-gauges></mat-grid-tile>
 </mat-grid-list>
 
 </div>

@@ -36,13 +36,13 @@ export class GaugesComponent implements OnInit {
         console.log(this.thermoData[this.thermo]);
         this.doughnutChartData = this.thermoData[this.thermo];
       });
-    this.doughnutChartLabels = [this.thermo];
+    
   }
   // events
   public chartClicked(e:any):void {
     console.log(e);
   }
- 
+
   public chartHovered(e:any):void {
     console.log(e);
   }
