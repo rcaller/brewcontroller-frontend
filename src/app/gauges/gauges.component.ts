@@ -1,4 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+
 
 @Component({
   selector: 'app-gauges',
@@ -9,25 +13,31 @@ export class GaugesComponent implements OnInit {
 
   @Input()
   thermo:string = "";
-  constructor() { }
-
-  ngOnInit() {
-    console.log(this.thermo);
-    this.doughnutChartData = this.thermoData[this.thermo];
-    this.doughnutChartLabels = [this.thermo];
-  }
-  public thermoData:any = {
-    beer: [75, 25],
-    flow: [50,50]
-  };
-  public doughnutChartLabels:string[] = [];
+  public thermoData:any = {};
   public doughnutChartData:number[] = [];
   public doughnutChartType:string = 'doughnut';
+  public doughnutChartLabels:string[]=[];
+  public doughnutChartColors:any= [
+     { backgroundColor: ['rgba(168,17,17,1)', 'rgba(200,200,200,1)'] },
+  ]
   public doughnutChartOptions:any = {
     circumference: Math.PI,
     rotation: -Math.PI,
     cutoutPercentage: 75,
-  }; 
+    backgroundColor: [ 'rgba(168,17,17,1)', 'rgba(186,186,186,1)']
+  };
+  constructor(
+    private http:Http
+  ) { }
+
+  ngOnInit() {
+      this.http.get('https://s3-eu-west-1.amazonaws.com/tertiary-test-json-bucket/gauge.json').subscribe(data => {
+        this.thermoData=data.json();
+        console.log(this.thermoData[this.thermo]);
+        this.doughnutChartData = this.thermoData[this.thermo];
+      });
+    this.doughnutChartLabels = [this.thermo];
+  }
   // events
   public chartClicked(e:any):void {
     console.log(e);

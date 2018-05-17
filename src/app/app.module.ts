@@ -7,6 +7,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { GraphComponent } from './graph/graph.component';
 import { GaugesComponent } from './gauges/gauges.component';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     BrowserModule,
     MatButtonModule,
     MatGridListModule,
-    ChartsModule
+    ChartsModule,
+    HttpModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-graph',
@@ -6,31 +9,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./graph.component.css']
 })
 export class GraphComponent implements OnInit {
+  public lineChartOptions:any = {};
+  public lineChartColors:Array<any> = [];
+  public lineChartLegend:boolean = true;
+  public lineChartType:string = 'scatter';
+  public lineChartData:Array<any>=[];
 
-  constructor() { }
+  constructor(
+    private http:Http
+  ) { };
 
   ngOnInit() {
-  }
-  // lineChart
-  public lineChartData:Array<any> = [
-    {data: [{x: 1,y: 1}, {x: 2,y: 23}, {x: 4,y: 42}, {x: 6,y: 7}, {x: 8,y: 13}], label: 'Target'},
-    {data: [{x: 1,y: 11}, {x: 2,y: 13}, {x: 4,y: 40}, {x: 7,y: 12}, {x: 9,y: 14}], label: 'Surface'},
-    {data: [{x: 1,y: 1.1}, {x: 2,y: 1.3}, {x: 4,y: .40}, {x: 7,y: 1.2}, {x: 9,y: 1.4}], label: 'Gravity', yAxisID: 'grav'},
-  ];
-  public lineChartOptions:any = {
-    responsive: true,
-    scales: {
-      yAxes: [{
-        id: 'temp',
-        type: 'linear'
-      }, {
-        id: 'grav',
-        type: 'linear',
-        position: 'right',
-      }]
-    }
-  };
-  public lineChartColors:Array<any> = [
+    this.lineChartOptions = {
+      responsive: true,
+      scales: {
+        xAxes: [{
+
+                type: 'time',
+                time: {
+                    unit: 'minute'
+                }
+        }],
+        yAxes: [{
+          id: 'temp',
+          type: 'linear'
+        }]
+      }
+    };
+    this.lineChartColors = [
     { // grey
       showLine: 'true',
       fill: 'false',
@@ -41,24 +47,57 @@ export class GraphComponent implements OnInit {
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     },
-    { 
+    {
       showLine: 'true',
       fill: 'false',
       borderColor: 'rgba(177,59,96,1)',
       pointRadius: 0
     },
-    { 
+    {
       showLine: 'true',
       fill: 'false',
       borderColor: 'rgba(148,59,177,1)',
-      pointBackgroundColor: 'rgba(148,59,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,59,177,0.8)'
+      pointRadius: 0
+    },
+    {
+      showLine: 'true',
+      fill: 'false',
+      borderColor: 'rgba(53,177,177,1)',
+      pointRadius: 0
     }
   ];
-  public lineChartLegend:boolean = true;
-  public lineChartType:string = 'scatter';
+
+    this.lineChartData=[
+      {data: [], label: 'target'},
+      {data: [], label: 'flow'},
+      {data: [], label: 'herms'},
+      {data: [], label: 'mash'}
+    ];
+    this.getData();
+  }
+
+  private getData():void {
+    this.http.get('https://s3-eu-west-1.amazonaws.com/tertiary-test-json-bucket/graph.json').subscribe(data => {
+      let graphData=data.json();
+      console.log(graphData);
+      let tempData:Array<any>=new Array();
+      for (var line in graphData) {
+        let dataArray:Array<any> = new Array();
+          for (var point of graphData[line]) {
+
+            let newPoint = {"x": Date.parse(point[0]), "y": point[1]};
+            dataArray.push(newPoint);
+          }
+        let localData = {data: dataArray, label: line}
+
+        tempData.push(localData);
+      }
+
+      this.lineChartData=tempData;
+      console.log(this.lineChartData);
+    });
+  }
+
 
   public randomize():void {
     let _lineChartData:Array<any> = new Array(this.lineChartData.length);
