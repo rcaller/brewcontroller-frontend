@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  windowWidth: number = window.innerWidth;
   title = 'Brew';
   beer='beer';
   fridge='fridge'

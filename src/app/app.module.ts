@@ -10,13 +10,16 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { HttpModule } from '@angular/http';
 import { GoswitchComponent } from './goswitch/goswitch.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { BeerxmlUploaderComponent } from './beerxml-uploader/beerxml-uploader.component';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
     AppComponent,
     GraphComponent,
     GaugesComponent,
-    GoswitchComponent
+    GoswitchComponent,
+    BeerxmlUploaderComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +27,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatGridListModule,
     MatSlideToggleModule,
     ChartsModule,
-    HttpModule
+    HttpModule,
+    FileUploadModule
   ],
   providers: [],
   bootstrap: [AppComponent]
