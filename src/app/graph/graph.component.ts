@@ -20,7 +20,7 @@ export class GraphComponent implements OnInit {
   ) {
     this.pollingInterval = Observable.interval(5000);
     this.pollingInterval.subscribe(x =>
-      this.update();
+      this.update()
     );
   };
 
