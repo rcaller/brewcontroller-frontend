@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/Rx';
 
 
 @Component({
@@ -13,6 +14,7 @@ export class GaugesComponent implements OnInit {
 
   @Input()
   thermo:string = "";
+  public pollingInterval:any;
   public thermoData:any = {};
   public doughnutChartData:number[] = [];
   public doughnutChartType:string = 'doughnut';
@@ -28,15 +30,28 @@ export class GaugesComponent implements OnInit {
   };
   constructor(
     private http:Http
-  ) { }
+  ) {
+    this.pollingInterval = Observable.interval(5000);
+    this.pollingInterval.subscribe(x =>
+        this.update();
+    );
+  }
 
   ngOnInit() {
-      this.http.get('https://s3-eu-west-1.amazonaws.com/tertiary-test-json-bucket/gauge.json').subscribe(data => {
-        this.thermoData=data.json();
-        console.log(this.thermoData[this.thermo]);
-        this.doughnutChartData = this.thermoData[this.thermo];
-      });
-    
+    this.update();
+
+  }
+
+  update() {
+   this.http.get('http://localhost:8080/current').subscribe(data => {
+        for (var thm in data.json()) {
+        var localTemp = data.json()[thm];
+        this.thermoData[thm]=[localTemp, 100-localTemp];
+      }
+      this.doughnutChartData = this.thermoData[this.thermo];
+    });
+
+
   }
   // events
   public chartClicked(e:any):void {

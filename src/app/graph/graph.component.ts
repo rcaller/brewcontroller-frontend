@@ -17,7 +17,12 @@ export class GraphComponent implements OnInit {
 
   constructor(
     private http:Http
-  ) { };
+  ) {
+    this.pollingInterval = Observable.interval(5000);
+    this.pollingInterval.subscribe(x =>
+      this.update();
+    );
+  };
 
   ngOnInit() {
     this.lineChartOptions = {
@@ -73,11 +78,11 @@ export class GraphComponent implements OnInit {
       {data: [], label: 'herms'},
       {data: [], label: 'mash'}
     ];
-    this.getData();
+    this.update();
   }
 
-  private getData():void {
-    this.http.get('https://s3-eu-west-1.amazonaws.com/tertiary-test-json-bucket/graph.json').subscribe(data => {
+  private update():void {
+    this.http.get('http://localhost:8080/tempsdata').subscribe(data => {
       let graphData=data.json();
       console.log(graphData);
       let tempData:Array<any>=new Array();
@@ -85,7 +90,7 @@ export class GraphComponent implements OnInit {
         let dataArray:Array<any> = new Array();
           for (var point of graphData[line]) {
 
-            let newPoint = {"x": Date.parse(point[0]), "y": point[1]};
+            let newPoint = {"x": Date.parse(point["timeStamp"]), "y": point["temperature"]};
             dataArray.push(newPoint);
           }
         let localData = {data: dataArray, label: line}
@@ -98,17 +103,6 @@ export class GraphComponent implements OnInit {
     });
   }
 
-
-  public randomize():void {
-    let _lineChartData:Array<any> = new Array(this.lineChartData.length);
-    for (let i = 0; i < this.lineChartData.length; i++) {
-      _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
-      for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-        _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
-      }
-    }
-    this.lineChartData = _lineChartData;
-  }
 
   // events
   public chartClicked(e:any):void {
