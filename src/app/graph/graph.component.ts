@@ -14,6 +14,7 @@ export class GraphComponent implements OnInit {
   public lineChartLegend:boolean = true;
   public lineChartType:string = 'scatter';
   public lineChartData:Array<any>=[];
+  public pollingInterval:any;
 
   constructor(
     private http:Http
