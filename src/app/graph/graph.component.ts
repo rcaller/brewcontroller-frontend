@@ -85,7 +85,7 @@ export class GraphComponent implements OnInit {
   private update():void {
     this.http.get('http://localhost:8080/tempsdata').subscribe(data => {
       let graphData=data.json();
-      console.log(graphData);
+      //console.log(graphData);
       let tempData:Array<any>=new Array();
       for (var line in graphData) {
         let dataArray:Array<any> = new Array();
@@ -100,18 +100,18 @@ export class GraphComponent implements OnInit {
       }
 
       this.lineChartData=tempData;
-      console.log(this.lineChartData);
+      //console.log(this.lineChartData);
     });
   }
 
 
   // events
   public chartClicked(e:any):void {
-    console.log(e);
+    //console.log(e);
   }
 
   public chartHovered(e:any):void {
-    console.log(e);
+    //console.log(e);
   }
 
 }

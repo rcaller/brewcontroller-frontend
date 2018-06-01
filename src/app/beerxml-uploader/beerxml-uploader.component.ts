@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
-const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
+const URL = 'http://localhost:8080/upload';
 
 @Component({
   selector: 'app-beerxml-uploader',
@@ -10,17 +10,20 @@ const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
 
 
 export class BeerxmlUploaderComponent implements OnInit {
-  //public URL="http://127.0.0.1"
-  public uploader:FileUploader = new FileUploader({url: URL});
+
+  public uploader:FileUploader = new FileUploader({url: URL, autoUpload: true});
   constructor() {
 
   }
 
   ngOnInit() {
+    this.uploader.onBeforeUploadItem = (item) => {
+      item.withCredentials = false;
+    }
   }
 
   public fileOver(e:any):void {
-    console.log(e);
+    //console.log(e);
   }
 
 }

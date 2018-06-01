@@ -6,6 +6,8 @@
 
           class="app-goswitch"
           [color]="goSwitchColor"
-          [checked]="goSwitchChecked">
+          [checked]="goSwitchChecked"
+          [(ngModel)]='goSwitchChecked'
+          (change) = "runToggle()">
 </mat-slide-toggle>
 </div>

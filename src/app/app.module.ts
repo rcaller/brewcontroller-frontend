@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule }    from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import {MatButtonModule} from '@angular/material';
@@ -28,7 +29,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     MatSlideToggleModule,
     ChartsModule,
     HttpModule,
-    FileUploadModule
+    FileUploadModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
