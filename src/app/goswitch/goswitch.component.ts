@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle;
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { HttpHeaders } from '@angular/common/http';
 
 @Component({
@@ -32,8 +32,9 @@ export class GoswitchComponent implements OnInit {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
-      });
-};
+      })
+    };
+
     this.http.post('http://localhost:8080/running', {"running": this.goSwitchChecked}).subscribe(data => {
       let jsonData=data.json();
       this.goSwitchChecked = jsonData["running"];
