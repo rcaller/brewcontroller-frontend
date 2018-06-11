@@ -12,8 +12,12 @@ import { HttpHeaders } from '@angular/common/http';
 export class GoswitchComponent implements OnInit {
   public goSwitchColor:string = "accent";
   public goSwitchChecked:boolean = false;
+  public pollingInterval:any;
   constructor(private http:Http) {
-
+    this.pollingInterval = Observable.interval(10000);
+    this.pollingInterval.subscribe(x =>
+        this.getRunStatus()
+    );
   }
 
   ngOnInit() {

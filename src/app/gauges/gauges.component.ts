@@ -32,7 +32,7 @@ export class GaugesComponent implements OnInit {
   constructor(
     private http:Http
   ) {
-    this.pollingInterval = Observable.interval(5000);
+    this.pollingInterval = Observable.interval(3000);
     this.pollingInterval.subscribe(x =>
         this.update()
     );
