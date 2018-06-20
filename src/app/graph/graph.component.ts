@@ -83,7 +83,7 @@ export class GraphComponent implements OnInit {
   }
 
   private update():void {
-    this.http.get('http://localhost:8080/tempsdata').subscribe(data => {
+    this.http.get('http://'+window.location.hostname+':8080/tempsdata').subscribe(data => {
       let graphData=data.json();
       //console.log(graphData);
       let tempData:Array<any>=new Array();

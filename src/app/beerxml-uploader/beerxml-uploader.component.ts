@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
-const URL = 'http://localhost:8080/upload';
+const URL = 'http://'+window.location.hostname+':8080/upload';
 
 @Component({
   selector: 'app-beerxml-uploader',

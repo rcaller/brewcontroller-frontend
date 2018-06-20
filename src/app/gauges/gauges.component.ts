@@ -44,7 +44,7 @@ export class GaugesComponent implements OnInit {
   }
 
   update() {
-   this.http.get('http://localhost:8080/current').subscribe(data => {
+   this.http.get('http://'+window.location.hostname+':8080/current').subscribe(data => {
         for (var thm in data.json()) {
         var localTemp = data.json()[thm];
         this.thermoData[thm]=[localTemp, 100-localTemp];

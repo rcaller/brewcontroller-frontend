@@ -25,7 +25,7 @@ export class GoswitchComponent implements OnInit {
   }
 
   getRunStatus() {
-    this.http.get('http://localhost:8080/running').subscribe(data => {
+    this.http.get('http://'+window.location.hostname+':8080/running').subscribe(data => {
       let jsonData=data.json();
       this.goSwitchChecked = jsonData["running"];
   });
