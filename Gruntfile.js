@@ -4,7 +4,7 @@ module.exports = function(grunt) {
         options: {
             maintainer: "Rich Caller <richc@tertiarybrewery.co.uk>",
             uploaders: [ { "name": "Rich Caller", "email": "richc@tertiarybrewery.co.uk" } ],
-            version: "0.1."+(process.env.BUILD_NUMBER?:1),
+            version: "0.1."+(process.env.BUILD_NUMBER||1),
             name: "brewcontrol",
             short_description: "Frontend and core package for brewcontrol HERMS system",
             long_description: "Frontend and core package for brewcontrol HERMS system",
