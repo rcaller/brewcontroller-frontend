@@ -19,7 +19,9 @@ deb http://repo.tertiarybrewery.co.uk stretch main
 Then run the following commands, you will need to accept a few things as I haven't got the repo signed properly yet.
 
 sudo apt-get update
+
 sudo apt-get install brewcontrol
+
 sudo init 6
 
 Once the system has restarted you should see the interface.
