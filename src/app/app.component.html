@@ -1,13 +1,13 @@
 <script src="node_modules/chart.js/src/chart.js"></script>
 <div style="left: 50px;width: calc(100% - 10px); height: 95vh; border: 1px solid black;">
-<mat-grid-list cols="5" rowHeight="4:5">
+<mat-grid-list cols="5" rowHeight="fit">
   <ng-container *ngIf="windowWidth > 1080; then desktopView; else panelView"></ng-container>
   <ng-template #desktopView>
-    <mat-grid-tile colspan="4" style="margin: 0px;padding: 0px;"><app-graph></app-graph></mat-grid-tile>
-    <mat-grid-tile  style="border: 1px solid black;"><app-beerxml-uploader ></app-beerxml-uploader></mat-grid-tile>
+    <mat-grid-tile colspan="4" rowspan="2" style="margin: 0px;padding: 0px;"><app-graph></app-graph></mat-grid-tile>
+    <mat-grid-tile rowspan="2" style="border: 1px solid black;"><app-beerxml-uploader ></app-beerxml-uploader></mat-grid-tile>
   </ng-template>
   <ng-template #panelView>
-    <mat-grid-tile colspan="5" ><app-graph></app-graph></mat-grid-tile>
+    <mat-grid-tile colspan="5" rowspan="2"><app-graph></app-graph></mat-grid-tile>
 
   </ng-template>
 
