@@ -1,6 +1,6 @@
 <script src="node_modules/chart.js/src/chart.js"></script>
 <div style="left: 50px;width: calc(100% - 10px); height: 95vh; border: 1px solid black;">
-<mat-grid-list cols="5" rowHeight="10:7">
+<mat-grid-list cols="5" rowHeight="10:9">
   <ng-container *ngIf="windowWidth > 1080; then desktopView; else panelView"></ng-container>
   <ng-template #desktopView>
     <mat-grid-tile colspan="4" rowspan="2" style="margin: 0px;padding: 0px;"><app-graph></app-graph></mat-grid-tile>
