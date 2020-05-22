@@ -118,5 +118,8 @@
       }
     }
   },
-  "defaultProject": "brew"
+  "defaultProject": "brew",
+  "cli": {
+    "analytics": "e40a7671-f5ac-4b32-878f-5ac3e48f99c9"
+  }
 }

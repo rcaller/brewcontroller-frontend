@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
+import { interval } from 'rxjs';
 import 'rxjs/add/operator/map';
 
 @Component({
@@ -9,21 +9,21 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./graph.component.css']
 })
 export class GraphComponent implements OnInit {
-  public lineChartOptions:any = {};
-  public lineChartColors:Array<any> = [];
-  public lineChartLegend:boolean = true;
-  public lineChartType:string = 'scatter';
-  public lineChartData:Array<any>=[];
-  public pollingInterval:any;
+  public lineChartOptions: any = {};
+  public lineChartColors: Array<any> = [];
+  public lineChartLegend = true;
+  public lineChartType = 'scatter';
+  public lineChartData: Array<any> = [];
+  public pollingInterval: any;
 
   constructor(
-    private http:Http
+    private http: HttpClient
   ) {
-    this.pollingInterval = Observable.interval(5000);
+    this.pollingInterval = interval(5000);
     this.pollingInterval.subscribe(x =>
       this.update()
     );
-  };
+  }
 
   ngOnInit() {
     this.lineChartOptions = {
@@ -73,7 +73,7 @@ export class GraphComponent implements OnInit {
     }
   ];
 
-    this.lineChartData=[
+    this.lineChartData = [
       {data: [], label: 'target'},
       {data: [], label: 'flow'},
       {data: [], label: 'herms'},
@@ -82,35 +82,35 @@ export class GraphComponent implements OnInit {
     this.update();
   }
 
-  private update():void {
-    this.http.get('http://'+window.location.hostname+':8080/tempsdata').subscribe(data => {
-      let graphData=data.json();
+  private update(): void {
+    this.http.get('http://' + window.location.hostname + ':8080/tempsdata', {responseType: 'json'}).subscribe(data => {
+      const graphData = data;
       //console.log(graphData);
-      let tempData:Array<any>=new Array();
-      for (var line in graphData) {
-        let dataArray:Array<any> = new Array();
-          for (var point of graphData[line]) {
+      const tempData: Array<any> = new Array();
+      for (const line in graphData) {
+        const dataArray: Array<any> = new Array();
+          for (const point of graphData[line]) {
 
-            let newPoint = {"x": Date.parse(point["timeStamp"]), "y": point["temperature"]};
+            const newPoint = {'x': Date.parse(point['timeStamp']), 'y': point['temperature']};
             dataArray.push(newPoint);
           }
-        let localData = {data: dataArray, label: line}
+        const localData = {data: dataArray, label: line};
 
         tempData.push(localData);
       }
 
-      this.lineChartData=tempData;
+      this.lineChartData = tempData;
       //console.log(this.lineChartData);
     });
   }
 
 
   // events
-  public chartClicked(e:any):void {
+  public chartClicked(e: any): void {
     //console.log(e);
   }
 
-  public chartHovered(e:any):void {
+  public chartHovered(e: any): void {
     //console.log(e);
   }
 

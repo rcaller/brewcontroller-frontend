@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
+import { interval } from 'rxjs';
 import 'rxjs/add/operator/map';
-import 'rxjs/Rx';
+
 
 
 @Component({
@@ -13,16 +13,16 @@ import 'rxjs/Rx';
 export class GaugesComponent implements OnInit {
 
   @Input()
-  thermo:string = "";
-  public pollingInterval:any;
-  public thermoData:any = {};
-  public doughnutChartData:number[] = [];
-  public doughnutChartType:string = 'doughnut';
-  public doughnutChartLabels:string[]=[];
-  public doughnutChartColors:any= [
+  thermo = '';
+  public pollingInterval: any;
+  public thermoData: any = {};
+  public doughnutChartData: number[] = [];
+  public doughnutChartType = 'doughnut';
+  public doughnutChartLabels: string[] = [];
+  public doughnutChartColors: any = [
      { backgroundColor: ['rgba(168,17,17,1)', 'rgba(200,200,200,1)'] },
   ];
-  public doughnutChartOptions:any = {
+  public doughnutChartOptions: any = {
     circumference: Math.PI,
     rotation: -Math.PI,
     cutoutPercentage: 75,
@@ -30,9 +30,9 @@ export class GaugesComponent implements OnInit {
   };
 
   constructor(
-    private http:Http
+    private http: HttpClient
   ) {
-    this.pollingInterval = Observable.interval(3000);
+    this.pollingInterval = interval(3000);
     this.pollingInterval.subscribe(x =>
         this.update()
     );
@@ -44,10 +44,10 @@ export class GaugesComponent implements OnInit {
   }
 
   update() {
-   this.http.get('http://'+window.location.hostname+':8080/current').subscribe(data => {
-        for (var thm in data.json()) {
-        var localTemp = data.json()[thm];
-        this.thermoData[thm]=[localTemp, 100-localTemp];
+   this.http.get( 'http://' + window.location.hostname + ':8080/current', {responseType: 'json'}).subscribe(data => {
+        for (let thm in data) {
+        let localTemp = data[thm];
+        this.thermoData[thm] = [localTemp, 100 - localTemp];
       }
       this.doughnutChartData = this.thermoData[this.thermo];
     });
@@ -55,11 +55,11 @@ export class GaugesComponent implements OnInit {
 
   }
   // events
-  public chartClicked(e:any):void {
+  public chartClicked(e: any): void {
     console.log(e);
   }
 
-  public chartHovered(e:any):void {
+  public chartHovered(e: any): void {
     console.log(e);
   }
 

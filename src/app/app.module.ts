@@ -1,14 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule }    from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import {MatButtonModule} from '@angular/material';
+import {MatButtonModule} from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { GraphComponent } from './graph/graph.component';
 import { GaugesComponent } from './gauges/gauges.component';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { GoswitchComponent } from './goswitch/goswitch.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { BeerxmlUploaderComponent } from './beerxml-uploader/beerxml-uploader.component';
@@ -28,7 +28,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     MatGridListModule,
     MatSlideToggleModule,
     ChartsModule,
-    HttpModule,
+    HttpClientModule,
     FileUploadModule,
     FormsModule
   ],
