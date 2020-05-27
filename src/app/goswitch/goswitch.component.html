@@ -1,6 +1,6 @@
 
 <div style="font-size: 2em; font-family: sans-serif; text-align: center;">
-  Start/Stop
+  Pump
   <br/>
 <mat-slide-toggle style="padding-top: 5px;"
 
@@ -8,6 +8,6 @@
           [color]="goSwitchColor"
           [checked]="goSwitchChecked"
           [(ngModel)]='goSwitchChecked'
-          (change) = "runToggle()">
+          (change) = "goToggle()">
 </mat-slide-toggle>
 </div>
