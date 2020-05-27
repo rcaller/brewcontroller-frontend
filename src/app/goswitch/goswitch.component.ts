@@ -32,17 +32,17 @@ export class GoswitchComponent implements OnInit {
 }
 
   goToggle() {
-    console.log('Toggle ' + this.goSwitchChecked);
+    console.log('Toggle pump' + this.goSwitchChecked);
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
       })
     };
 
-    this.http.post('http://localhost:8080/running', {'running': this.goSwitchChecked}, {responseType: 'json'}).subscribe(data => {
-      const jsonData = data;
-      this.goSwitchChecked = jsonData['running'];
-    });
+ //   this.http.post('http://localhost:8080/running', {'running': this.goSwitchChecked}, {responseType: 'json'}).subscribe(data => {
+ //     const jsonData = data;
+ //     this.goSwitchChecked = jsonData['running'];
+ //   });
   }
 
 }

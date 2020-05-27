@@ -1,3 +1,5 @@
-.app-goswitch {
-  transform: scale(2.5);
+.mat-button-toggle-checked {
+  background-color: #aa0000;
+  color: #eeeeee;
 }
+

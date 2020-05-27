@@ -1,5 +1,5 @@
 <div style="position: float; top: 0px; width: 100%; vertical-align: top; ">
-  <div style="text-align: center;font-size: 2em; font-family: sans-serif;">
+  <div style="text-align: center;font-size: 1.4em; font-family: sans-serif;">
     {{thermo}}
   </div>
   <canvas baseChart style="width:100%;height:100%;margin: 0px;padding: 0px;"
@@ -11,7 +11,7 @@
               (chartHover)="chartHovered($event)"
               (chartClick)="chartClicked($event)"></canvas>
 
-  <div *ngIf="thermoData[thermo]" style="position: absolute; top: 70%; left: 50%; font-size: 2em; font-family: sans-serif; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);">
+  <div *ngIf="thermoData[thermo]" style="position: absolute; top: 70%; left: 50%; font-size: 1.4em; font-family: sans-serif; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);">
     {{thermoData[thermo][0]}}
   </div>
 </div>

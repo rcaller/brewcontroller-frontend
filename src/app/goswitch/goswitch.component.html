@@ -1,13 +1,12 @@
 
-<div style="font-size: 2em; font-family: sans-serif; text-align: center;">
-  Pump
-  <br/>
-<mat-slide-toggle style="padding-top: 5px;"
 
-          class="app-goswitch"
-          [color]="goSwitchColor"
-          [checked]="goSwitchChecked"
-          [(ngModel)]='goSwitchChecked'
-          (change) = "goToggle()">
-</mat-slide-toggle>
-</div>
+
+
+  <mat-button-toggle-group name="goSwitch" aria-label="Controller Mode" multiple
+          (change) = "goToggle()"
+  >
+    <mat-button-toggle value="Running" style="font-size: 1.4em">Pump</mat-button-toggle>
+
+  </mat-button-toggle-group>
+
+

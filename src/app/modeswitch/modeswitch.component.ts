@@ -10,38 +10,39 @@ import { HttpHeaders } from '@angular/common/http';
   styleUrls: ['./modeswitch.component.css']
 })
 export class ModeswitchComponent implements OnInit {
-  public modeSwitchColor = 'accent';
-  public modeSwitchChecked = false;
+
+  public mode = 'PREP';
   public pollingInterval: any;
   constructor(private http: HttpClient) {
-    this.pollingInterval = interval(10000);
+    this.pollingInterval = interval(5000);
     this.pollingInterval.subscribe(x =>
-        this.getRunStatus()
+        this.getRunMode()
     );
   }
 
   ngOnInit() {
-    this.getRunStatus();
+    this.getRunMode();
   }
 
-  getRunStatus() {
-    this.http.get('http://' + window.location.hostname + ':8080/status', {responseType: 'json'}).subscribe(data => {
+  getRunMode() {
+    this.http.get('http://' + window.location.hostname + ':8080/run_mode', {responseType: 'json'}).subscribe(data => {
       const jsonData = data;
-      this.modeSwitchChecked = jsonData['running'];
+      this.mode = jsonData['mode'];
   });
 }
 
-  modeToggle() {
-    console.log('Toggle ' + this.modeSwitchChecked);
+  setRunMode(item) {
+    console.log('Toggle ' + item.value);
+    this.mode = item.value;
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
       })
     };
 
-    this.http.post('http://localhost:8080/running', {'running': this.modeSwitchChecked}, {responseType: 'json'}).subscribe(data => {
+    this.http.post('http://localhost:8080/run_mode', {'runMode': this.mode}, {responseType: 'json'}).subscribe(data => {
       const jsonData = data;
-      this.modeSwitchChecked = jsonData['running'];
+      console.log(jsonData);
     });
   }
 
